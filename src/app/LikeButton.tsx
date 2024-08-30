@@ -1,17 +1,27 @@
 import React, { useState } from "react";
 
-const LikeButton = () => {
+interface LikeButtonProps {
+	setCantLike: (func: (prevCantLike: number) => number) => void;
+	cantLike: number;
+}
+
+const LikeButton = ({ setCantLike }: LikeButtonProps) => {
 	const [liked, setLiked] = useState<boolean>(false);
 
 	const handleLike = () => {
+		setCantLike((prevCantLike: number) =>
+			!liked ? prevCantLike + 1 : prevCantLike - 1
+		);
 		setLiked(!liked);
 	};
+
+	const xmlns = "http://www.w3.org/2000/svg";
 
 	return (
 		<button onClick={handleLike} className="focus:outline-none">
 			{liked ? (
 				<svg
-					xmlns="http://www.w3.org/2000/svg"
+					xmlns={xmlns}
 					viewBox="0 0 24 24"
 					fill="currentColor"
 					className="w-6 h-6 text-red-500"
@@ -20,7 +30,7 @@ const LikeButton = () => {
 				</svg>
 			) : (
 				<svg
-					xmlns="http://www.w3.org/2000/svg"
+					xmlns={xmlns}
 					viewBox="0 0 24 24"
 					fill="none"
 					stroke="currentColor"

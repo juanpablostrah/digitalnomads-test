@@ -1,6 +1,6 @@
 import axios from "axios";
 import Link from "next/link";
-import { Post } from "../feed/page";
+import { PostType } from "../../pages/feed/page";
 
 export const dynamic = "force-dynamic";
 
@@ -15,7 +15,7 @@ export default async function FeedServer({ searchParams }: FeedServerProps) {
 	const res = await axios.get(
 		`https://jsonplaceholder.typicode.com/photos?_page=${page}&_limit=10`
 	);
-	const posts: Post[] = res.data;
+	const posts: PostType[] = res.data;
 
 	return (
 		<div className="p-4 bg-cyan-800">
