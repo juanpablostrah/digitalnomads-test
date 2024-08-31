@@ -1,18 +1,19 @@
-import React from "react";
-import LikeButton from "./LikeButton";
-import { PostType } from "./FeedClient";
+"use client";
 
+import React, { useState } from "react";
+import LikeButton from "../likeButton";
+
+export interface PostModel {
+	id: number;
+	title: string;
+	thumbnailUrl: string;
+}
 interface PostProps {
-	post: PostType;
-	setCantLike: (func: (prevCantLike: number) => number) => void;
-	cantLike: number;
+	post: PostModel;
 }
 
-const Post = ({
-	post: { id, thumbnailUrl, title },
-	setCantLike,
-	cantLike,
-}: PostProps) => {
+const Post = ({ post: { id, thumbnailUrl, title } }: PostProps) => {
+	const [cantLike, setCantLike] = useState<number>(0);
 	return (
 		<div
 			key={id}

@@ -1,6 +1,8 @@
-import React from "react";
+"use client";
 
-interface LoadingSpinner {
+import React, { useEffect } from "react";
+
+interface LoadingSpinnerProps {
 	loadMoreButtonRef?: any;
 	fetchNextPage: () => any;
 	isFetchingNextPage?: boolean;
@@ -12,7 +14,7 @@ const LoadingSpinner = ({
 	fetchNextPage,
 	isFetchingNextPage,
 	hasNextPage,
-}: LoadingSpinner) => {
+}: LoadingSpinnerProps) => {
 	return (
 		<div className="flex justify-center items-center ">
 			{isFetchingNextPage || hasNextPage ? (

@@ -1,15 +1,16 @@
 "use client";
-import { useState } from "react";
+
+import Post, { PostModel } from "./post";
 
 type PostsProps = {
-	content: number[];
+	posts: PostModel[];
 };
 
-export function Posts({ content }: PostsProps) {
+export function Posts({ posts }: PostsProps) {
 	return (
 		<div>
-			{content.map((x) => (
-				<div>{x}</div>
+			{posts.map((post: PostModel) => (
+				<Post key={post.id} post={post} />
 			))}
 		</div>
 	);
