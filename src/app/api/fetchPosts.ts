@@ -1,7 +1,18 @@
-export const fetchPosts = async ({ pageParam = 1 }: { pageParam?: number }) => {
-	console.log("entra getPosts");
+export interface PostModel {
+	id: number;
+	title: string;
+	thumbnailUrl: string;
+}
+
+type FetchPostsOptions = {
+	pageNumber?: number;
+};
+
+export const fetchPosts = async ({
+	pageNumber = 1,
+}: FetchPostsOptions): Promise<PostModel[]> => {
 	const res = await fetch(
-		`https://jsonplaceholder.typicode.com/photos?_page=${pageParam}&_limit=10`
+		`https://jsonplaceholder.typicode.com/photos?_page=${pageNumber}&_limit=10`
 	);
 	if (!res.ok) {
 		throw new Error("Network response was not ok");

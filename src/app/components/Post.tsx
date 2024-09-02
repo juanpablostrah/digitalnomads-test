@@ -1,19 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
-import LikeButton from "../likeButton";
+import LikeButton from "./LikeButton";
 import Image from "next/image";
+import { PostModel } from "../api/fetchPosts";
 
-export interface PostModel {
-	id: number;
-	title: string;
-	thumbnailUrl: string;
-}
 interface PostProps {
 	post: PostModel;
 }
 
-const Post = ({ post: { id, thumbnailUrl, title } }: PostProps) => {
+export const Post = ({ post: { id, thumbnailUrl, title } }: PostProps) => {
 	const [cantLike, setCantLike] = useState<number>(0);
 	return (
 		<div
@@ -27,6 +23,7 @@ const Post = ({ post: { id, thumbnailUrl, title } }: PostProps) => {
 					fill
 					className="object-cover rounded"
 					unoptimized
+					priority
 				/>
 			</div>
 			<div className="flex gap-4 mt-4">
@@ -38,5 +35,3 @@ const Post = ({ post: { id, thumbnailUrl, title } }: PostProps) => {
 		</div>
 	);
 };
-
-export default Post;
