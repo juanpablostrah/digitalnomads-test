@@ -1,13 +1,25 @@
-import FeedPage from "./feed-async/page";
+import { Suspense } from "react";
+import { fetchPosts } from "./api/fetchPosts";
+import { Paginator } from "./feed-async/paginator";
+import { Posts } from "./feed-async/posts";
 
-export default function Home() {
-	const initialPage = "1";
+export default async function Home({
+	searchParams,
+}: {
+	searchParams: { page?: string };
+}) {
+	const { page } = searchParams;
+	const parsedPage = page ? parseInt(page) : 1;
+	const pageNumber = isNaN(parsedPage) || parsedPage < 1 ? 1 : parsedPage;
+
+	const posts = await fetchPosts({ pageParam: pageNumber });
+
 	return (
 		<div>
-			<h1 className="text-center text-3xl font-bold mb-4 mt-8">
-				Instagram Feed
-			</h1>
-			<FeedPage searchParams={{ page: initialPage }} />
+			<Posts posts={posts} />
+			<Suspense>
+				<Paginator />
+			</Suspense>
 		</div>
 	);
 }
